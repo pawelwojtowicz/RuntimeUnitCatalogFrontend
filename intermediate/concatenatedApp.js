@@ -299,7 +299,7 @@ runtimeUnitCatalogApp.service("moduleService", ['$http', 'appConfig', '$q' ,func
     
     var runtimeUnitCatalogApp = angular.module('runtimeUnitCatalogApp');
     
-    runtimeUnitCatalogApp.controller('unitTypeDialogController',['selectedUnitTypeId','unitTypeService','$mdDialog' ], function(selectedUnitTypeId,unitTypeService,$mdDialog){
+    runtimeUnitCatalogApp.controller('unitTypeDialogController',['selectedUnitTypeId','unitTypeService','$mdDialog', function(selectedUnitTypeId,unitTypeService,$mdDialog){
     
       var vm = this;
       vm.dialogTitle = "Add Runtime Unit Type";
@@ -324,7 +324,7 @@ runtimeUnitCatalogApp.service("moduleService", ['$http', 'appConfig', '$q' ,func
           description : vm.description
         };
         
-        vm.addUnitType(unitType).then( function() {
+        unitTypeService.addUnitType(unitType).then( function() {
           $mdDialog.hide();
         });
 
@@ -333,7 +333,7 @@ runtimeUnitCatalogApp.service("moduleService", ['$http', 'appConfig', '$q' ,func
       vm.cancel = function() {
         $mdDialog.cancel();
       };
-    });
+    }]);
 
 }());
 (function () {
@@ -347,12 +347,12 @@ runtimeUnitCatalogApp.service("moduleService", ['$http', 'appConfig', '$q' ,func
             vm.unitTypeList = [];
 
             unitTypeService.getAllUnitTypes().then( function (unitTypes) {
-                vm.unitTypeList = configItems;
+                vm.unitTypeList = unitTypes;
             });
                         
-            vm.deleteUnitType = function( configItemId )
+            vm.deleteUnitType = function( unitTypeId )
             {
-                unitTypeService.deleteConfigItem(configItemId).then ( function() {
+                unitTypeService.deleteUnitType(unitTypeId).then ( function() {
                     unitTypeService.getAllUnitTypes().then(function( unitTypes) { 
                         vm.unitTypeList = unitTypes;
                     });
@@ -368,13 +368,14 @@ runtimeUnitCatalogApp.service("moduleService", ['$http', 'appConfig', '$q' ,func
             };
             vm.showUpdateDialog = function( id ) {
                 vm.showUnitTypeDialog(id).then( function() {
-                    unitTypeService.getAllConfigItems().then(function( unitTypes) { 
+                    unitTypeService.getAllUnitTypes().then(function( unitTypes) { 
                         vm.unitTypeList = unitTypes;
                     });
                 });
             };
 
             vm.showUnitTypeDialog = function ( id) {
+                console.log("I am still here");
                 return $mdDialog.show({
                     templateUrl: 'partials/unitTypeDialog.html',
                     controller: 'unitTypeDialogController',
@@ -389,7 +390,7 @@ runtimeUnitCatalogApp.service("moduleService", ['$http', 'appConfig', '$q' ,func
     
         }]);
     }());
-angular.module('configurationApp').run(['$templateCache', function($templateCache) {
+angular.module('runtimeUnitCatalogApp').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('partials/moduleDialog.html',

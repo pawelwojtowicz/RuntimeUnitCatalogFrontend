@@ -9,12 +9,12 @@
             vm.unitTypeList = [];
 
             unitTypeService.getAllUnitTypes().then( function (unitTypes) {
-                vm.unitTypeList = configItems;
+                vm.unitTypeList = unitTypes;
             });
                         
-            vm.deleteUnitType = function( configItemId )
+            vm.deleteUnitType = function( unitTypeId )
             {
-                unitTypeService.deleteConfigItem(configItemId).then ( function() {
+                unitTypeService.deleteUnitType(unitTypeId).then ( function() {
                     unitTypeService.getAllUnitTypes().then(function( unitTypes) { 
                         vm.unitTypeList = unitTypes;
                     });
@@ -30,13 +30,14 @@
             };
             vm.showUpdateDialog = function( id ) {
                 vm.showUnitTypeDialog(id).then( function() {
-                    unitTypeService.getAllConfigItems().then(function( unitTypes) { 
+                    unitTypeService.getAllUnitTypes().then(function( unitTypes) { 
                         vm.unitTypeList = unitTypes;
                     });
                 });
             };
 
             vm.showUnitTypeDialog = function ( id) {
+                console.log("I am still here");
                 return $mdDialog.show({
                     templateUrl: 'partials/unitTypeDialog.html',
                     controller: 'unitTypeDialogController',

@@ -1,4 +1,4 @@
-angular.module('configurationApp').run(['$templateCache', function($templateCache) {
+angular.module('runtimeUnitCatalogApp').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('partials/moduleDialog.html',

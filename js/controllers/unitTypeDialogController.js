@@ -3,7 +3,7 @@
     
     var runtimeUnitCatalogApp = angular.module('runtimeUnitCatalogApp');
     
-    runtimeUnitCatalogApp.controller('unitTypeDialogController',['selectedUnitTypeId','unitTypeService','$mdDialog' ], function(selectedUnitTypeId,unitTypeService,$mdDialog){
+    runtimeUnitCatalogApp.controller('unitTypeDialogController',['selectedUnitTypeId','unitTypeService','$mdDialog', function(selectedUnitTypeId,unitTypeService,$mdDialog){
     
       var vm = this;
       vm.dialogTitle = "Add Runtime Unit Type";
@@ -28,7 +28,7 @@
           description : vm.description
         };
         
-        vm.addUnitType(unitType).then( function() {
+        unitTypeService.addUnitType(unitType).then( function() {
           $mdDialog.hide();
         });
 
@@ -37,6 +37,6 @@
       vm.cancel = function() {
         $mdDialog.cancel();
       };
-    });
+    }]);
 
 }());

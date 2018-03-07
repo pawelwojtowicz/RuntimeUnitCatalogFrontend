@@ -67,7 +67,7 @@ module.exports = function(grunt) {
 			src:      'partials/**.html',
 			dest:     'intermediate/template.js',
 			options:  {
-				module: 'configurationApp',
+				module: 'runtimeUnitCatalogApp',
 				usemin: 'dist/vendors.js', // <~~ This came from the <!-- build:js --> block
 				htmlmin: {
 					collapseBooleanAttributes:      true,
