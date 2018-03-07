@@ -1,0 +1,18 @@
+<div>
+    <table border="1" style="width:100%">
+        <tr>
+            <td>Name</td>
+            <td>Description</td>
+            <td>Actions</td>
+        </tr>
+        <tr ng-repeat="unitType in vm.unitTypeList">
+            <td>{{unitType.name}}</td>
+            <td>{{unitType.description}}</td>
+            <td>
+                <md-icon md-svg-src="/assets/edit.svg" aria-label="Edit " ng-click="vm.showUpdateDialog(unitType.unitTypeId)"></md-icon>
+                <md-icon md-svg-src="/assets/delete.svg" aria-label="Edit " ng-click="vm.deleteUnitType(unitType.unitTypeId)"></md-icon>
+            </td>
+        </tr>
+    </table>
+    <md-button class="md-primary md-raised" ng-click="vm.showAddDialog()">Add unit type</md-button>
+</div>
