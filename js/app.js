@@ -18,6 +18,12 @@ runtimeUnitCatalogApp.config(['$routeProvider',
           controllerAs: 'vm',
           bindToController: true,
           replace: true      }).
+      when('/systemmodellist', {
+        templateUrl: 'partials/systemModelList.html',
+        controller: 'systemModelListController',
+          controllerAs: 'vm',
+          bindToController: true,
+          replace: true      }).
        otherwise({
           redirectTo: '/unittypeslist'
       });
