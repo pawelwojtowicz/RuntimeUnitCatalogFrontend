@@ -1,0 +1,18 @@
+<div>
+    <table border="1" style="width:100%">
+        <tr>
+            <td>Name</td>
+            <td>Description</td>
+            <td>Actions</td>
+        </tr>
+        <tr ng-repeat="module in vm.moduleList">
+            <td>{{module.name}}</td>
+            <td>{{module.description}}</td>
+            <td>
+                <md-icon md-svg-src="/assets/edit.svg" aria-label="Edit " ng-click="vm.showUpdateDialog(module.moduleId)"></md-icon>
+                <md-icon md-svg-src="/assets/delete.svg" aria-label="Edit " ng-click="vm.delete(module.moduleId)"></md-icon>
+            </td>
+        </tr>
+    </table>
+    <md-button class="md-primary md-raised" ng-click="vm.showAddDialog()">Add Module</md-button>
+</div>

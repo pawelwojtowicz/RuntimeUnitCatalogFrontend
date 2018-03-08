@@ -12,6 +12,12 @@ runtimeUnitCatalogApp.config(['$routeProvider',
           controllerAs: 'vm',
           bindToController: true,
           replace: true      }).
+      when('/modulelist', {
+        templateUrl: 'partials/moduleList.html',
+        controller: 'moduleListController',
+          controllerAs: 'vm',
+          bindToController: true,
+          replace: true      }).
        otherwise({
           redirectTo: '/unittypeslist'
       });
