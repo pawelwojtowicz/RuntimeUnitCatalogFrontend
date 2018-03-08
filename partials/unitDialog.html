@@ -1,0 +1,47 @@
+<md-dialog aria-label="Unit" style="width: 500px;">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+        <h2>{{vm.dialogTitle}}</h2>
+        <span flex=""></span>
+        </div>
+    </md-toolbar>
+    <md-dialog-content class="mat-button">
+        <span flex="">
+            <md-input-container>
+                    <label>Unit name</label>
+                    <input ng-model="vm.unitId" type="text"/>
+            </md-input-container><br/>
+            <md-input-container>
+                <label>Unit Type</label>
+                <md-select ng-model="vm.unitTypeId">
+                    <md-option><em>None</em></md-option>
+                    <md-option ng-repeat="unitType in vm.unitTypeList" ng-value="unitType.unitTypeId">{{unitType.name}}</md-option>
+                </md-select>
+            </md-input-container><br/>
+            <md-input-container>
+                <label>Module</label>
+                <md-select ng-model="vm.moduleId">
+                    <md-option><em>None</em></md-option>
+                    <md-option ng-repeat="module in vm.moduleList" ng-value="module.moduleId">{{module.name}}</md-option>
+                </md-select>
+            </md-input-container><br/>
+
+            <md-input-container>
+                    <label>Vehicle description</label>
+                    <input ng-model="vm.description" type="text"/>
+            </md-input-container>
+        </span>    
+    </md-dialog-content>
+    <md-dialog-actions class="mat-dialog-actions">
+        <md-button class="mat-button" ng-click="vm.save()">
+            <span class="mat-button-wrapper">Add</span>
+            <div class="mat-button-ripple mat-ripple" md-ripple=""></div>
+            <div class="mat-button-focus-overlay"></div>
+        </md-button>
+        <md-button class="mat-button" ng-click="vm.cancel()">
+            <span class="mat-button-wrapper">Cancel</span>
+            <div class="mat-button-ripple mat-ripple" md-ripple =""></div>
+            <div class="mat-button-focus-overlay"></div>
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>
