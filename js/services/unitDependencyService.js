@@ -6,37 +6,45 @@
         var vm = this;
         vm.url = appConfig.getServiceUrl() + "/unitdependency";   
     
-        vm.addDependency = function ( unitId, requiredUnitId ) {
-            var urlForRequest = vm.url + "/" + unitId + "/" + requiredUnitId;
+        vm.addDependency = function ( sunitId, srequiredUnitId ) {
+            var dependency = {
+                unitId : sunitId,
+                requiredUnitId : srequiredUnitId
+            };
+
+            console.log(JSON.stringify(dependency));
+
             return $q(function( resolve, reject ){
                 $http({	url: vm.url,
-                        method: "POST",
-                        data: {},
-                        headers: {'Content-Type': 'application/json'}}).then (
-                        function( response) {
-                            resolve();
-                        } , function () {
-                            reject();
-                        });
-            });
-        };   
-            
-        vm.deleteDependency = function( unitId, requiredUnitId) {
-            return $q(function( resolve, reject ){
-            var urlForRequest = vm.url + "/" + unitId + "/" + requiredUnitId;
-            $http({	url: urlForRequest,
-                        method: "DELETE",
-                        data: {},
-                        headers: {'Content-Type': 'application/json'}}).then (
-                        function( response) {
-                            resolve();
-                        } , function ()
-                        {
-                            reject();
-                        });
+                    method: "POST",
+                    data: dependency,
+                    headers: {'Content-Type': 'application/json'}}).then (
+                    function( response) {
+                        resolve();
+                    } , function () {
+                        reject();
                     });
-        };    
+            });
+        };
+            
+        vm.removeDependency = function( sunitId, srequiredUnitId) {
+            var dependency = {
+                unitId : sunitId,
+                requiredUnitId : srequiredUnitId
+            };
 
-    
+            return $q(function( resolve, reject ){
+                $http({	url: vm.url,
+                    method: "DELETE",
+                    data: dependency,
+                    headers: {'Content-Type': 'application/json'}}).then (
+                    function( response) {
+                        resolve();
+                    } , function ()
+                    {
+                        reject();
+                    });
+                });
+        };
     }]);
     }());

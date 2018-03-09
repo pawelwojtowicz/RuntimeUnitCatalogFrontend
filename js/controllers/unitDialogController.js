@@ -3,7 +3,7 @@
     
     var runtimeUnitCatalogApp = angular.module('runtimeUnitCatalogApp');
     
-    runtimeUnitCatalogApp.controller('unitDialogController',['selectedUnitId','unitService','unitTypeService','moduleService','$mdDialog', function(selectedUnitId,unitService,unitTypeService,moduleService,$mdDialog){
+    runtimeUnitCatalogApp.controller('unitDialogController',['selectedUnitId','unitService','unitTypeService','moduleService','unitDependencyService','$mdDialog', function(selectedUnitId,unitService,unitTypeService,moduleService,unitDependencyService,$mdDialog){
     
       var vm = this;
       vm.dialogTitle = "Add Unit";
@@ -13,6 +13,16 @@
       vm.unitTypeId = 0;
       vm.moduleId = 0;
       vm.description = "";
+
+      vm.requiredUnits = [];
+      vm.allUnits = [];
+
+      vm.selectedDependency = -1;
+      vm.selectedUnit = -1;
+
+      unitService.getAllUnits().then( function (unitList) {
+        vm.allUnits = unitList;
+      });
       
       /** fetch the unit types from the server */
       unitTypeService.getAllUnitTypes().then( function (unitTypes) {
@@ -23,16 +33,19 @@
       moduleService.getAllModules().then( function ( modules ) {
         vm.moduleList = modules;
       });
+
+      vm.updateDialog = function( unitInfo ) {
+        vm.unitId = unitInfo.unitId;
+        vm.unitTypeId = unitInfo.unitType.unitTypeId;
+        vm.moduleId = unitInfo.module.moduleId;
+        vm.description = unitInfo.description;
+        vm.requiredUnits = unitInfo.unitDependencies;
+      };
     
       if ( "" != vm.unitId) {
         vm.dialogTitle = "Edit Unit";
         
-        unitService.getUnitById(vm.unitId).then( function( unit ) {
-          vm.unitId = unit.unitId;
-          vm.unitTypeId = unit.unitType.unitTypeId;
-          vm.moduleId = unit.module.moduleId;
-          vm.description = unit.description;
-        } , function( error ){
+        unitService.getUnitById(vm.unitId).then( vm.updateDialog , function( error ){
         });
       }
       
@@ -56,6 +69,43 @@
       vm.cancel = function() {
         $mdDialog.cancel();
       };
+
+      vm.selectDependency = function( index ) {
+        console.log("SelectDependency-"+JSON.stringify(index));
+        vm.selectedDependency = index;
+        vm.selectedUnit = -1;
+      };
+
+      vm.selectUnit = function( index ) {
+        console.log("RemoveDependency-"+JSON.stringify(index));
+        vm.selectedDependency = -1;
+        vm.selectedUnit = index;
+      };
+
+      vm.addDependency = function() {
+        if ( -1 !== vm.selectedUnit ) {
+          if ( vm.unitId !== vm.allUnits[vm.selectedUnit].unitId) {
+            unitDependencyService.addDependency( vm.unitId , vm.allUnits[vm.selectedUnit].unitId).then(function() {
+              unitService.getUnitById(vm.unitId).then( vm.updateDialog , function( error ){
+              console.log(JSON.stringify(error));
+              });
+              vm.selectedUnit = -1;
+            });
+          }
+        }
+      };
+
+      vm.removeDependency = function() {
+        if ( -1 !== vm.selectedDependency ) {
+          unitDependencyService.removeDependency( vm.unitId , vm.allUnits[vm.selectedDependency].unitId).then(function() {
+            unitService.getUnitById(vm.unitId).then( vm.updateDialog , function( error ){
+            });
+
+            vm.selectedDependency = -1;
+          });
+        }
+      };
+
     }]);
 
 }());

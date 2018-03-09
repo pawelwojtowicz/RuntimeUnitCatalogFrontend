@@ -1,4 +1,4 @@
-<md-dialog aria-label="Unit" style="width: 500px;">
+<md-dialog aria-label="Unit" style="width: 70%;">
     <md-toolbar>
         <div class="md-toolbar-tools">
         <h2>{{vm.dialogTitle}}</h2>
@@ -12,24 +12,59 @@
                     <input ng-model="vm.unitId" type="text"/>
             </md-input-container><br/>
             <md-input-container>
-                <label>Unit Type</label>
-                <md-select ng-model="vm.unitTypeId">
-                    <md-option><em>None</em></md-option>
-                    <md-option ng-repeat="unitType in vm.unitTypeList" ng-value="unitType.unitTypeId">{{unitType.name}}</md-option>
-                </md-select>
-            </md-input-container><br/>
-            <md-input-container>
-                <label>Module</label>
-                <md-select ng-model="vm.moduleId">
-                    <md-option><em>None</em></md-option>
-                    <md-option ng-repeat="module in vm.moduleList" ng-value="module.moduleId">{{module.name}}</md-option>
-                </md-select>
-            </md-input-container><br/>
-
-            <md-input-container>
-                    <label>Vehicle description</label>
-                    <input ng-model="vm.description" type="text"/>
+                <label>Vehicle description</label>
+                <input ng-model="vm.description" type="text"/>
             </md-input-container>
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="General info">
+                    <md-input-container>
+                        <label>Unit Type</label>
+                        <md-select ng-model="vm.unitTypeId">
+                            <md-option><em>None</em></md-option>
+                            <md-option ng-repeat="unitType in vm.unitTypeList" ng-value="unitType.unitTypeId">{{unitType.name}}</md-option>
+                        </md-select>
+                    </md-input-container><br/>
+                    <md-input-container>
+                        <label>Module</label>
+                        <md-select ng-model="vm.moduleId">
+                            <md-option><em>None</em></md-option>
+                            <md-option ng-repeat="module in vm.moduleList" ng-value="module.moduleId">{{module.name}}</md-option>
+                        </md-select>
+                    </md-input-container><br/>    
+                </md-tab>
+                <md-tab label="Technical data">
+
+                </md-tab>
+                <md-tab label="Dependencies">
+                    <md-content class="md-padding">
+                        <div layout="row" layout-xs="column" >
+                          <div flex="">
+                              <md-list>
+                                  <md-list-item class="md-1-line" ng-repeat="requiredUnit in vm.requiredUnits" 
+                                                                  ng-click="vm.selectDependency($index)" 
+                                                                  ng-class="{selectedIndex: vm.selectedDependency===$index}">
+                                      <div class="md-list-item-text" layout="column">{{requiredUnit.unitId}}</div>
+                                  </md-list-item>
+                              </md-list>
+                          </div>
+                          <div>
+                              <button ng-click="vm.removeDependency()">&#9654;&#9654;</button><br/>
+                              <button ng-click="vm.addDependency()">&#9664;&#9664;</button>
+                          </div>
+                          <div flex="">
+                              <md-list>
+                                  <md-list-item class="md-1-line" ng-repeat="unit in vm.allUnits | removeElementsFrom : vm.requiredUnits" 
+                                                                  ng-click="vm.selectUnit(vm.allUnits.indexOf(unit))" 
+                                                                  ng-class="{selectedIndex: vm.selectedUnit===$index}">
+                                      <div class="md-list-item-text" layout="column">{{unit.unitId}}</div>
+                                  </md-list-item>
+                              </md-list>        
+                          </div>
+                      </div>        
+                      </md-content>
+                </md-tab>
+
+            </md-tabs>
         </span>    
     </md-dialog-content>
     <md-dialog-actions class="mat-dialog-actions">
