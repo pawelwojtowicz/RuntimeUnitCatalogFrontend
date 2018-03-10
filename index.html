@@ -15,14 +15,25 @@
         <!--XXX Live reload placeholder XXX-->
         
 
+        <md-content flex layout-padding>
     
-        <md-toolbar>
-            <h1>Process Registry</h1>
-        </md-toolbar>
-        <div class="container" layout="row" flex>
-            <md-content id="content" flex>
-                <div ng-view></div>
-            </md-content>
-        </div>
+            <md-toolbar ng-controller="toolbarController as vm">
+                <h1>Process Registry</h1>
+                <md-button ng-click="vm.toggle()">Toggle</md-button>
+            </md-toolbar>
+
+            <div layout="row">
+                <div width="20%">
+                    <md-list ng-controller="naviController as vm">
+                        <md-list-item ng-repeat="option in vm.menu">
+                            <md-button ng-click="vm.goTo(option.navigationPath)">{{option.caption}}</md-button>     
+                        </md-list-item>
+                    </md-list>    
+                </div>
+                <md-content flex layout-padding>      
+                        <div ng-view></div>                    
+                </md-content>
+            </div>
+        </md-content>
     </body>
 </html>
