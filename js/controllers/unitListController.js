@@ -3,7 +3,7 @@
     
     var runtimeUnitCatalogApp = angular.module('runtimeUnitCatalogApp');
     
-    runtimeUnitCatalogApp.controller('unitListController',['unitService' ,'$mdDialog',function( unitService ,$mdDialog)
+    runtimeUnitCatalogApp.controller('unitListController',[ 'unitService' ,'$mdDialog',function( unitService ,$mdDialog)
         {
             var vm = this;   
             vm.unitList = [];

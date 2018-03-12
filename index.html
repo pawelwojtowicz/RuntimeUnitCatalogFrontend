@@ -19,12 +19,12 @@
     
             <md-toolbar ng-controller="toolbarController as vm">
                 <h1>Process Registry</h1>
-                <md-button ng-click="vm.toggle()">Toggle</md-button>
+                {{vm.systemModelName}}
             </md-toolbar>
 
             <div layout="row">
-                <div width="20%">
-                    <md-list ng-controller="naviController as vm">
+                <div width="20%" ng-controller="naviController as vm" ng-show="vm.isNavigationMenuVisible()">
+                    <md-list >
                         <md-list-item ng-repeat="option in vm.menu">
                             <md-button ng-click="vm.goTo(option.navigationPath)">{{option.caption}}</md-button>     
                         </md-list-item>

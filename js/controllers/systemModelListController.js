@@ -3,10 +3,10 @@
 
 var runtimeUnitCatalogApp = angular.module('runtimeUnitCatalogApp');
 
-runtimeUnitCatalogApp.controller('systemModelListController',['systemModelService' ,'$mdDialog',function( systemModelService ,$mdDialog) {
+runtimeUnitCatalogApp.controller('systemModelListController',['systemModelService' ,'$mdDialog','naviService',function( systemModelService ,$mdDialog,naviService) {
   var vm = this;   
   vm.modelList = [];
-
+  
   systemModelService.getAllSystemModels().then( function ( models ) {
       vm.modelList = models;
   });
@@ -46,6 +46,10 @@ runtimeUnitCatalogApp.controller('systemModelListController',['systemModelServic
               selectedSystemModelId: id
           }
       });
+  };
+
+  vm.selectModel = function(index) {
+
   };
 }]);
 }());

@@ -3,12 +3,9 @@
     
     var runtimeUnitCatalogApp = angular.module('runtimeUnitCatalogApp');
     
-    runtimeUnitCatalogApp.controller('toolbarController',['$mdSidenav',function($mdSidenav){
+    runtimeUnitCatalogApp.controller('toolbarController',['$scope','$mdSidenav',function($scope,$mdSidenav){
       var vm = this;
-
-      vm.toggle = function() {
-        $mdSidenav('left').toggle();
-      };
+      vm.systemModelName = "TestModel";
     
     }]);
 

@@ -3,7 +3,7 @@
     
     var runtimeUnitCatalogApp = angular.module('runtimeUnitCatalogApp');
     
-    runtimeUnitCatalogApp.controller('naviController',['naviService',function(naviService){
+    runtimeUnitCatalogApp.controller('naviController',[ 'naviService',function( naviService){
       var vm = this;
 
       vm.showToolbar = true;
@@ -20,6 +20,12 @@
       vm.goTo = function( page ) {
         naviService.navigateTo( page );
       };
+
+      vm.isNavigationMenuVisible = function () {
+        return true;
+      };
+
+
     }]);
 
 }());

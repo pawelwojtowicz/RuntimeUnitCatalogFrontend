@@ -6,7 +6,6 @@
         var vm = this;
 
         vm.navigateTo = function( page ){
-            console.log("navigacja do stronki" + page);
             $location.url("/"+page);
         };
             

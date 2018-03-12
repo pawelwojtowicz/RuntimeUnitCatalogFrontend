@@ -1,18 +1,11 @@
 <div>
-    <table border="1" style="width:100%">
-        <tr>
-            <td>Name</td>
-            <td>Description</td>
-            <td>Actions</td>
-        </tr>
-        <tr ng-repeat="systemModel in vm.modelList">
-            <td>{{systemModel.name}}</td>
-            <td>{{systemModel.description}}</td>
-            <td>
-                <md-icon md-svg-src="/assets/edit.svg" aria-label="Edit " ng-click="vm.showUpdateDialog(systemModel.systemModelId)"></md-icon>
-                <md-icon md-svg-src="/assets/delete.svg" aria-label="Edit " ng-click="vm.delete(systemModel.systemModelId)"></md-icon>
-            </td>
-        </tr>
-    </table>
+    <md-list>
+        <md-list-item class="md-2-line" ng-repeat="systemModel in vm.modelList" ng-click="vm.selectModel($index)">
+            <div class="md-list-item-text">
+                <h3>{{systemModel.name}}</h3>
+                <p>{{systemModel.description}}</p>
+            </div>
+        </md-list-item>
+    </md-list>
     <md-button class="md-primary md-raised" ng-click="vm.showAddDialog()">Add System Model</md-button>
 </div>
