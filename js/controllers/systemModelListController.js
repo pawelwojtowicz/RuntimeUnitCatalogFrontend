@@ -49,7 +49,9 @@ runtimeUnitCatalogApp.controller('systemModelListController',['systemModelServic
   };
 
   vm.selectModel = function(index) {
-
+      console.log("$index=" + JSON.stringify(index));
+      console.log(JSON.stringify(vm.modelList[index].systemModelId));
+    systemModelService.selectSystemModel( vm.modelList[index].systemModelId);
   };
 }]);
 }());

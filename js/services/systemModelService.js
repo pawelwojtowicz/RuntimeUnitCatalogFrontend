@@ -2,9 +2,10 @@
     'use strict';
     var runtimeUnitCatalogApp = angular.module('runtimeUnitCatalogApp');
     
-    runtimeUnitCatalogApp.service("systemModelService", ['$http', 'appConfig', '$q' ,function($http,appConfig, $q) {
+    runtimeUnitCatalogApp.service("systemModelService", ['$http', 'appConfig', '$q', '$rootScope' ,function($http,appConfig, $q , $rootScope) {
         var vm = this;
         vm.url = appConfig.getServiceUrl() + "/systemmodel";
+        vm.selectedSystemModel = null;
     
         vm.addSystemModel = function ( systemModel ) {
             return $q(function( resolve, reject ){
@@ -46,7 +47,19 @@
             var urlForDeleting = vm.url + "/" + String(systemModelId);
             return $http.delete(urlForDeleting);
         };
+
+        vm.getSelectedModel = function( ) {
+            return vm.selectedSystemModel; 
+        };
         
+        vm.selectSystemModel = function( systemModelId ) {
+            vm.getSystemModelById(systemModelId).then ( function( systemModelInfo ) {
+                vm.selectedSystemModel = systemModelInfo;
+                $rootScope.$broadcast( 'currentSystemModel' , vm.selectedSystemModel );
+            } , function(error ) {
+
+            });
+        };
     
     }]);
 }());
