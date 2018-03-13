@@ -32,6 +32,20 @@ runtimeUnitCatalogApp.service("moduleService", ['$http', 'appConfig', '$q' ,func
 		});
 	};
 
+	vm.getModulesForModel = function( systemModelId) {
+		var urlForRequest = appConfig.getServiceUrl() + '/modules/formodel/'+String(systemModelId);
+
+		console.log(urlForRequest);
+
+		return $q( function(resolve, reject) {
+			$http.get(urlForRequest).then( function( response) {
+				resolve(response.data);
+			},function(error) {
+				reject();
+			});
+		});
+	};
+
 	vm.getModuleById = function( moduleId ) {
 		return $q ( function( resolve, reject ) {
 			var requestUrl = vm.url+'/'+moduleId;

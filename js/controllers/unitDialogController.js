@@ -3,7 +3,7 @@
     
     var runtimeUnitCatalogApp = angular.module('runtimeUnitCatalogApp');
     
-    runtimeUnitCatalogApp.controller('unitDialogController',['selectedUnitId','unitService','unitTypeService','moduleService','unitDependencyService','$mdDialog', function(selectedUnitId,unitService,unitTypeService,moduleService,unitDependencyService,$mdDialog){
+    runtimeUnitCatalogApp.controller('unitDialogController',['selectedUnitId','unitService','systemModelService','unitTypeService','moduleService','unitDependencyService','$mdDialog', function(selectedUnitId,unitService,systemModelService,unitTypeService,moduleService,unitDependencyService,$mdDialog){
     
       var vm = this;
       vm.dialogTitle = "Add Unit";
@@ -13,6 +13,7 @@
       vm.unitTypeId = 0;
       vm.moduleId = 0;
       vm.description = "";
+      vm.systemModelId = systemModelService.getSelectedModel().systemModelId;
 
       vm.requiredUnits = [];
       vm.allUnits = [];
@@ -40,6 +41,7 @@
         vm.moduleId = unitInfo.module.moduleId;
         vm.description = unitInfo.description;
         vm.requiredUnits = unitInfo.unitDependencies;
+        vm.systemModelId = unitInfo.systemModelId;
       };
     
       if ( "" != vm.unitId) {
@@ -55,7 +57,8 @@
           name : vm.name,
           unitTypeId: vm.unitTypeId,
           moduleId: vm.moduleId,
-          description : vm.description
+          description : vm.description,
+          systemModelId : vm.systemModelId
         };
         
         console.log(JSON.stringify(unit));

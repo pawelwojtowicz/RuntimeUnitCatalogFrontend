@@ -29,7 +29,6 @@
       $scope.$on('currentSystemModel', function(event, arg ) {
         if ( arg != null && arg.systemModelId !== 0 ) {
           vm.showToolbar = true;
-
           vm.goTo(0);
         }
       });

@@ -7,7 +7,6 @@
 
         vm.navigateTo = function( title, page ){
             $rootScope.$broadcast( 'currentPage' , title );
-
             $location.url("/"+page);
         };
 

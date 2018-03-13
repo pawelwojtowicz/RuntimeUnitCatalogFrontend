@@ -42,6 +42,17 @@
                 });
             });
         };
+
+        vm.getUnitTypesForModel = function( systemModelId ) {
+            var urlForRequest = vm.url + "/formodel/" + String(systemModelId);
+            return $q( function(resolve, reject) {
+                $http.get(urlForRequest).then( function( response) {
+                    resolve(response.data);
+                },function(error) {
+                    reject();
+                });
+            });
+        };
         
         vm.deleteUnitType = function( unitTypeId) {
             var urlForDeleting = vm.url + "/" + String(unitTypeId);

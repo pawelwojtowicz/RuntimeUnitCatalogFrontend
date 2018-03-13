@@ -3,19 +3,22 @@
     
     var runtimeUnitCatalogApp = angular.module('runtimeUnitCatalogApp');
     
-    runtimeUnitCatalogApp.controller('unitListController',[ 'unitService' ,'$mdDialog',function( unitService ,$mdDialog)
+    runtimeUnitCatalogApp.controller('unitListController',[ 'unitService', 'systemModelService' ,'$mdDialog',function( unitService, systemModelService ,$mdDialog)
         {
             var vm = this;   
             vm.unitList = [];
+            vm.systemModelId = systemModelService.getSelectedModel().systemModelId;
 
-            unitService.getAllUnits().then( function (unitList) {
+            console.log("here I am - in unit controller" + JSON.stringify(vm.unitList));
+
+            unitService.getUnitsForModel(vm.systemModelId).then( function (unitList) {
                 vm.unitList = unitList;
             });
                         
             vm.deleteUnit = function( unitId )
             {
                 unitService.deleteUnit(unitId).then ( function() {
-                    unitService.getAllUnits().then(function( unitList) { 
+                    unitService.getUnitsForModel(vm.systemModelId).then(function( unitList) { 
                         vm.unitList = unitList;
                     });
                 });
@@ -23,14 +26,14 @@
     
             vm.showAddDialog = function() {
                 vm.showUnitDialog("").then( function() {
-                    unitService.getAllUnits().then(function( unitList) { 
+                    unitService.getUnitsForModel(vm.systemModelId).then(function( unitList) { 
                         vm.unitList = unitList;
                     });                    
                 });
             };
             vm.showUpdateDialog = function( id ) {
                 vm.showUnitDialog(id).then( function() {
-                    unitService.getAllUnits().then(function( unitList) { 
+                    unitService.getUnitsForModel(vm.systemModelId).then(function( unitList) { 
                         vm.unitList = unitList;
                     });
                 });

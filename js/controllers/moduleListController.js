@@ -3,18 +3,18 @@
 
 var runtimeUnitCatalogApp = angular.module('runtimeUnitCatalogApp');
 
-runtimeUnitCatalogApp.controller('moduleListController',['moduleService' ,'$mdDialog',function( moduleService ,$mdDialog) {
+runtimeUnitCatalogApp.controller('moduleListController',['moduleService','systemModelService' ,'$mdDialog',function( moduleService,systemModelService ,$mdDialog) {
   var vm = this;   
   vm.moduleList = [];
-
-  moduleService.getAllModules().then( function ( modules ) {
+  vm.systemModelId = systemModelService.getSelectedModel().systemModelId;
+  moduleService.getModulesForModel(vm.systemModelId).then( function ( modules ) {
       vm.moduleList = modules;
   });
               
   vm.delete = function( moduleId )
   {
       moduleService.deleteModule(moduleId).then ( function() {
-          moduleService.getAllModules().then(function( modules ) { 
+          moduleService.getModulesForModel(vm.systemModelId).then(function( modules ) { 
               vm.moduleList = modules;
           });
       });
@@ -22,14 +22,14 @@ runtimeUnitCatalogApp.controller('moduleListController',['moduleService' ,'$mdDi
 
   vm.showAddDialog = function() {
       vm.showModuleDialog(0).then( function() {
-          moduleService.getAllModules().then(function( modules ) { 
+          moduleService.getModulesForModel(vm.systemModelId).then(function( modules ) { 
               vm.moduleList = modules;
           });                    
       });
   };
   vm.showUpdateDialog = function( id ) {
       vm.showModuleDialog(id).then( function() {
-          moduleService.getAllModules().then(function( modules ) { 
+          moduleService.getModulesForModel(vm.systemModelId).then(function( modules ) { 
               vm.moduleList = modules;
           });
       });
