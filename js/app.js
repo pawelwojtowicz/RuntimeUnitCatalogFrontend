@@ -31,7 +31,7 @@ runtimeUnitCatalogApp.config(['$routeProvider',
           bindToController: true,
           replace: true      }).
        otherwise({
-          redirectTo: '/unittypeslist'
+          redirectTo: '/systemmodellist'
       });
   }]);
 }());
