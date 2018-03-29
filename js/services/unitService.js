@@ -13,7 +13,8 @@
                         data: unit,
                         headers: {'Content-Type': 'application/json'}}).then (
                         function( response) {
-                            resolve();
+                            console.log(JSON.stringify(response));
+                            resolve( response.data );
                         } , function ()
                         {
                             reject();

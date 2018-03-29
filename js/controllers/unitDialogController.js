@@ -3,7 +3,7 @@
     
     var runtimeUnitCatalogApp = angular.module('runtimeUnitCatalogApp');
     
-    runtimeUnitCatalogApp.controller('unitDialogController',['selectedUnitId','unitService','systemModelService','unitTypeService','moduleService','unitDependencyService','$mdDialog', function(selectedUnitId,unitService,systemModelService,unitTypeService,moduleService,unitDependencyService,$mdDialog){
+    runtimeUnitCatalogApp.controller('unitDialogController',['selectedUnitId','unitService','systemModelService','unitTypeService','moduleService','unitDependencyService','$mdDialog', '$mdToast', function(selectedUnitId,unitService,systemModelService,unitTypeService,moduleService,unitDependencyService,$mdDialog, $mdToast){
     
       var vm = this;
       vm.dialogTitle = "Add Unit";
@@ -66,8 +66,16 @@
         
         console.log(JSON.stringify(unit));
         
-        unitService.addUnit(unit).then( function() {
-          $mdDialog.hide();
+        unitService.addUnit(unit).then( function( result ) {
+          console.log( JSON.stringify(result));
+          if ( 0 === result.status ) {
+            $mdDialog.hide();
+          } else {
+          
+            var position = { bottom: false, top: true, left: false, right: false };
+            $mdToast.show( $mdToast.simple().textContent(result.message).hideDelay(3000)
+    );
+          }
         });
 
       };
