@@ -9,6 +9,7 @@
       vm.dialogTitle = "Add Unit";
       vm.unitTypeList = [];
       vm.moduleList = [];
+      vm.unitStringId = "";
       vm.unitId = selectedUnitId;
       vm.unitTypeId = 0;
       vm.moduleId = 0;
@@ -37,6 +38,7 @@
 
       vm.updateDialog = function( unitInfo ) {
         vm.unitId = unitInfo.unitId;
+        vm.unitStringId = unitInfo.unitStringId;
         vm.unitTypeId = unitInfo.unitType.unitTypeId;
         vm.moduleId = unitInfo.module.moduleId;
         vm.description = unitInfo.description;
@@ -44,7 +46,7 @@
         vm.systemModelId = unitInfo.systemModelId;
       };
     
-      if ( "" != vm.unitId) {
+      if ( 0 != vm.unitId) {
         vm.dialogTitle = "Edit Unit";
         
         unitService.getUnitById(vm.unitId).then( vm.updateDialog , function( error ){
@@ -54,6 +56,7 @@
       vm.save = function() {
         var unit = {
           unitId : vm.unitId,
+          unitStringId : vm.unitStringId,
           name : vm.name,
           unitTypeId: vm.unitTypeId,
           moduleId: vm.moduleId,

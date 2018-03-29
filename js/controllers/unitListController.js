@@ -25,7 +25,7 @@
             };
     
             vm.showAddDialog = function() {
-                vm.showUnitDialog("").then( function() {
+                vm.showUnitDialog(0).then( function() {
                     unitService.getUnitsForModel(vm.systemModelId).then(function( unitList) { 
                         vm.unitList = unitList;
                     });                    
