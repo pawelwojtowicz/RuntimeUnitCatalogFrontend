@@ -10,8 +10,8 @@ runtimeUnitCatalogApp.service("appConfig", [function() {
     vm.port = "8080";
 
     this.getServiceUrl = function() {
-        return "http://"+vm.ip+":"+vm.port;
-    };
+	    return "http://"+location.host;
+    };	
 
 }]);
 }());
